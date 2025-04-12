@@ -31,30 +31,29 @@
         make.center.equalTo(self.view);
     }];
     
-    VMKButton *hImageTitleButton = [self createButton:@"左图右标题" layout:(VMKButtonLayoutHImageTitle) constraintsBlock:^(MASConstraintMaker *make) {
+    VMKButton *hImageTitleButton = [self createButton:@"前图后标题" layout:(VMKButtonLayoutHImageTitle) constraintsBlock:^(MASConstraintMaker *make) {
         make.top.equalTo(label.mas_bottom);
         make.centerX.equalTo(self.view);
     }];
     hImageTitleButton.contentEdgeInsets = UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f);
     
-    VMKButton *hTitleImageButton = [self createButton:@"右图左标题" layout:(VMKButtonLayoutHTitleImage) constraintsBlock:^(MASConstraintMaker *make) {
+    VMKButton *hTitleImageButton = [self createButton:@"后图前标题" layout:(VMKButtonLayoutHTitleImage) constraintsBlock:^(MASConstraintMaker *make) {
         make.top.equalTo(hImageTitleButton.mas_bottom);
         make.centerX.equalTo(self.view);
     }];
     hTitleImageButton.contentEdgeInsets = UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f);
     
-    VMKButton *vImageTitleButton = [self createButton:@"左图右标题" layout:(VMKButtonLayoutVImageTitle) constraintsBlock:^(MASConstraintMaker *make) {
+    VMKButton *vImageTitleButton = [self createButton:@"上图下标题" layout:(VMKButtonLayoutVImageTitle) constraintsBlock:^(MASConstraintMaker *make) {
         make.top.equalTo(hTitleImageButton.mas_bottom);
         make.centerX.equalTo(self.view);
     }];
     vImageTitleButton.contentEdgeInsets = UIEdgeInsetsMake(5.0f, 0.0f, 5.0f, 0.0f);
     
-    VMKButton *vTitleImageButton = [self createButton:@"右图左标题" layout:(VMKButtonLayoutVTitleImage) constraintsBlock:^(MASConstraintMaker *make) {
+    VMKButton *vTitleImageButton = [self createButton:@"下图上标题" layout:(VMKButtonLayoutVTitleImage) constraintsBlock:^(MASConstraintMaker *make) {
         make.top.equalTo(vImageTitleButton.mas_bottom);
         make.centerX.equalTo(self.view);
     }];
     vTitleImageButton.contentEdgeInsets = UIEdgeInsetsMake(5.0f, 0.0f, 5.0f, 0.0f);
-    [self.view layoutIfNeeded];
 }
 
 - (VMKButton *)createButton:(NSString *)title layout:(VMKButtonLayout)layout constraintsBlock:(void(^)(MASConstraintMaker  *make))constraintsBlock {

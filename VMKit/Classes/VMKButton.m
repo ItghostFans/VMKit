@@ -16,6 +16,28 @@
     [self vmk_layoutUpdate];
 }
 
+- (CGSize)intrinsicContentSize {
+    CGSize intrinsicContentSize = [super intrinsicContentSize];
+    switch (self.vmk_layout) {
+        case VMKButtonLayoutHTitleImage:
+        case VMKButtonLayoutHImageTitle: {
+            break;
+        }
+        case VMKButtonLayoutVImageTitle:
+        case VMKButtonLayoutVTitleImage: {
+            CGSize titleSize = [self.titleLabel sizeThatFits:(CGSizeZero)];
+            CGSize imageSize = self.imageView.image.size;
+            intrinsicContentSize.width = MAX(titleSize.width, imageSize.width) + self.contentEdgeInsets.left + self.contentEdgeInsets.right;
+            intrinsicContentSize.height = titleSize.height + imageSize.height + self.contentEdgeInsets.top + self.contentEdgeInsets.bottom;
+            break;
+        }
+        default: {
+            break;
+        }
+    }
+    return intrinsicContentSize;
+}
+
 #pragma mark - Setter
 
 - (void)setVmk_layout:(VMKButtonLayout)vmk_layout {
@@ -72,14 +94,14 @@
         case VMKButtonLayoutVTitleImage: {
             // 下图上标题
             titleEdgeInsets = UIEdgeInsetsMake(
-                                               -CGRectGetHeight(self.imageView.frame) + itemSpacing2,
+                                               -CGRectGetHeight(self.imageView.frame) - itemSpacing2,
                                                -CGRectGetWidth(self.imageView.frame),
-                                               -itemSpacing2,
+                                               itemSpacing2,
                                                0.0f);
             imageEdgeInsets = UIEdgeInsetsMake(
-                                               CGRectGetHeight(self.titleLabel.frame) - itemSpacing2,
+                                               CGRectGetHeight(self.titleLabel.frame) + itemSpacing2,
                                                0.0f,
-                                               itemSpacing2,
+                                               -itemSpacing2,
                                                -CGRectGetWidth(self.titleLabel.frame));
             break;
         }
