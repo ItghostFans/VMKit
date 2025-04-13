@@ -21,6 +21,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
+		788B0C9F2DAB69BA00DB2FD2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 788B0C9D2DAB69BA00DB2FD2 /* Localizable.strings */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		94F180EF5D7AB162066248B3 /* Pods_VMKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 987D7C95E24AAB4E99EC19B1 /* Pods_VMKit_Tests.framework */; };
 		BF36C7C9577EE62F5EF3BB1C /* Pods_VMKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCDCF932C0D8A8EB1DE8B1 /* Pods_VMKit_Example.framework */; };
@@ -62,6 +63,9 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		788B0C972DAB683A00DB2FD2 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		788B0C9E2DAB69BA00DB2FD2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		788B0CA02DAB69EB00DB2FD2 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8BBCDCF932C0D8A8EB1DE8B1 /* Pods_VMKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VMKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		987D7C95E24AAB4E99EC19B1 /* Pods_VMKit_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VMKit_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +102,7 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
+				788B0C9D2DAB69BA00DB2FD2 /* Localizable.strings */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* Example for VMKit */,
 				6003F5B5195388D20070C39A /* Tests */,
@@ -261,6 +266,7 @@
 				English,
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = 6003F581195388D10070C39A;
 			productRefGroup = 6003F58B195388D20070C39A /* Products */;
@@ -278,6 +284,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				788B0C9F2DAB69BA00DB2FD2 /* Localizable.strings in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
@@ -330,6 +337,7 @@
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 				"${BUILT_PRODUCTS_DIR}/ReactiveObjC/ReactiveObjC.framework",
 				"${BUILT_PRODUCTS_DIR}/VMKit/VMKit.framework",
+				"${BUILT_PRODUCTS_DIR}/VMLocalization/VMLocalization.framework",
 				"${BUILT_PRODUCTS_DIR}/ViewModel/ViewModel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -337,6 +345,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactiveObjC.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VMKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VMLocalization.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViewModel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -440,8 +449,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				71719F9E1E33DC2100824A3D /* Base */,
+				788B0C972DAB683A00DB2FD2 /* ar */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		788B0C9D2DAB69BA00DB2FD2 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				788B0C9E2DAB69BA00DB2FD2 /* en */,
+				788B0CA02DAB69EB00DB2FD2 /* ar */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -483,6 +502,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -515,6 +535,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};

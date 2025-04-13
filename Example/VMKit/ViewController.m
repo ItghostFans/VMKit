@@ -31,29 +31,45 @@
         make.center.equalTo(self.view);
     }];
     
-    VMKButton *hImageTitleButton = [self createButton:@"前图后标题" layout:(VMKButtonLayoutHImageTitle) constraintsBlock:^(MASConstraintMaker *make) {
+    VMKButton *hImageTitleButton = [self createButton:NSLocalizedString(@"前图后标题", nil) layout:(VMKButtonLayoutHImageTitle) constraintsBlock:^(MASConstraintMaker *make) {
         make.top.equalTo(label.mas_bottom);
         make.centerX.equalTo(self.view);
     }];
-    hImageTitleButton.contentEdgeInsets = UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f);
+    hImageTitleButton.contentEdgeInsets = UIEdgeInsetsMake(10.0f, 15.0f, 10.0f, 15.0f);
     
-    VMKButton *hTitleImageButton = [self createButton:@"后图前标题" layout:(VMKButtonLayoutHTitleImage) constraintsBlock:^(MASConstraintMaker *make) {
+    VMKButton *hTitleImageButton = [self createButton:NSLocalizedString(@"后图前标题", nil) layout:(VMKButtonLayoutHTitleImage) constraintsBlock:^(MASConstraintMaker *make) {
         make.top.equalTo(hImageTitleButton.mas_bottom);
         make.centerX.equalTo(self.view);
     }];
-    hTitleImageButton.contentEdgeInsets = UIEdgeInsetsMake(0.0f, 5.0f, 0.0f, 5.0f);
+    hTitleImageButton.contentEdgeInsets = UIEdgeInsetsMake(10.0f, 15.0f, 10.0f, 15.0f);
     
-    VMKButton *vImageTitleButton = [self createButton:@"上图下标题" layout:(VMKButtonLayoutVImageTitle) constraintsBlock:^(MASConstraintMaker *make) {
+    VMKButton *vImageTitleButton = [self createButton:NSLocalizedString(@"上图下标题", nil) layout:(VMKButtonLayoutVImageTitle) constraintsBlock:^(MASConstraintMaker *make) {
         make.top.equalTo(hTitleImageButton.mas_bottom);
         make.centerX.equalTo(self.view);
     }];
-    vImageTitleButton.contentEdgeInsets = UIEdgeInsetsMake(5.0f, 0.0f, 5.0f, 0.0f);
+    vImageTitleButton.contentEdgeInsets = UIEdgeInsetsMake(15.0f, 10.0f, 15.0f, 10.0f);
     
-    VMKButton *vTitleImageButton = [self createButton:@"下图上标题" layout:(VMKButtonLayoutVTitleImage) constraintsBlock:^(MASConstraintMaker *make) {
+    VMKButton *vTitleImageButton = [self createButton:NSLocalizedString(@"下图上标题", nil) layout:(VMKButtonLayoutVTitleImage) constraintsBlock:^(MASConstraintMaker *make) {
         make.top.equalTo(vImageTitleButton.mas_bottom);
         make.centerX.equalTo(self.view);
     }];
-    vTitleImageButton.contentEdgeInsets = UIEdgeInsetsMake(5.0f, 0.0f, 5.0f, 0.0f);
+    vTitleImageButton.contentEdgeInsets = UIEdgeInsetsMake(15.0f, 10.0f, 15.0f, 10.0f);
+    
+//    UITextView *textView = UITextView.new;
+//    textView.font = [UIFont systemFontOfSize:12.0f];
+//    textView.layer.borderColor = UIColor.redColor.CGColor;
+//    textView.layer.borderWidth = 1.0f;
+//    
+//    textView.textContainer.lineFragmentPadding = 0.0f;
+//    textView.textContainerInset = UIEdgeInsetsZero;
+//    
+//    [self.view addSubview:textView];
+//    [textView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(label.mas_top);
+//        make.centerX.equalTo(self.view);
+//        make.width.equalTo(self.view).multipliedBy(0.8f);
+//        make.height.mas_equalTo(100.0f);
+//    }];
 }
 
 - (VMKButton *)createButton:(NSString *)title layout:(VMKButtonLayout)layout constraintsBlock:(void(^)(MASConstraintMaker  *make))constraintsBlock {

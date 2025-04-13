@@ -7,6 +7,8 @@
 
 #import "VMKButton.h"
 
+#import <VMLocalization/UIGeometry+Localization.h>
+
 @implementation VMKButton
 
 #pragma mark - Super
@@ -25,6 +27,7 @@
         }
         case VMKButtonLayoutVImageTitle:
         case VMKButtonLayoutVTitleImage: {
+            // 需要重新计算。
             CGSize titleSize = [self.titleLabel sizeThatFits:(CGSizeZero)];
             CGSize imageSize = self.imageView.image.size;
             intrinsicContentSize.width = MAX(titleSize.width, imageSize.width) + self.contentEdgeInsets.left + self.contentEdgeInsets.right;
@@ -65,12 +68,12 @@
     switch (self.vmk_layout) {
         case VMKButtonLayoutHTitleImage: {
             // 后图前标题
-            titleEdgeInsets = UIEdgeInsetsMake(
+            titleEdgeInsets = UIDirectionalEdgesInsetsMake(
                                                0.0f,
                                                -CGRectGetWidth(self.imageView.frame) - itemSpacing2,
                                                0.0f,
                                                CGRectGetWidth(self.imageView.frame));
-            imageEdgeInsets = UIEdgeInsetsMake(
+            imageEdgeInsets = UIDirectionalEdgesInsetsMake(
                                                0.0f,
                                                CGRectGetWidth(self.titleLabel.frame) + itemSpacing2,
                                                0.0f,
@@ -79,12 +82,12 @@
         }
         case VMKButtonLayoutVImageTitle: {
             // 上图下标题
-            titleEdgeInsets = UIEdgeInsetsMake(
+            titleEdgeInsets = UIDirectionalEdgesInsetsMake(
                                                CGRectGetHeight(self.imageView.frame) + itemSpacing2,
                                                -CGRectGetWidth(self.imageView.frame),
                                                -itemSpacing2,
                                                0.0f);
-            imageEdgeInsets = UIEdgeInsetsMake(
+            imageEdgeInsets = UIDirectionalEdgesInsetsMake(
                                                -CGRectGetHeight(self.titleLabel.frame) - itemSpacing2,
                                                0.0f,
                                                itemSpacing2,
@@ -93,12 +96,12 @@
         }
         case VMKButtonLayoutVTitleImage: {
             // 下图上标题
-            titleEdgeInsets = UIEdgeInsetsMake(
+            titleEdgeInsets = UIDirectionalEdgesInsetsMake(
                                                -CGRectGetHeight(self.imageView.frame) - itemSpacing2,
                                                -CGRectGetWidth(self.imageView.frame),
                                                itemSpacing2,
                                                0.0f);
-            imageEdgeInsets = UIEdgeInsetsMake(
+            imageEdgeInsets = UIDirectionalEdgesInsetsMake(
                                                CGRectGetHeight(self.titleLabel.frame) + itemSpacing2,
                                                0.0f,
                                                -itemSpacing2,
@@ -107,8 +110,8 @@
         }
         case VMKButtonLayoutHImageTitle: {
             // 前图后标题
-            titleEdgeInsets = UIEdgeInsetsMake(0.0f, itemSpacing2, 0.0f, -itemSpacing2);
-            imageEdgeInsets = UIEdgeInsetsMake(0.0f, -itemSpacing2, 0.0f, itemSpacing2);
+            titleEdgeInsets = UIDirectionalEdgesInsetsMake(0.0f, itemSpacing2, 0.0f, -itemSpacing2);
+            imageEdgeInsets = UIDirectionalEdgesInsetsMake(0.0f, -itemSpacing2, 0.0f, itemSpacing2);
             break;
         }
         default: {

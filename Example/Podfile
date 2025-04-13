@@ -5,6 +5,7 @@ ios_deployment_target = '13.0'
 target 'VMKit_Example' do
   pod 'VMKit', :path => '../'
   pod 'ViewModel', :path => '../../ViewModel'
+  pod 'VMLocalization', :path => '../../VMLocalization'
   pod 'Masonry'
 
   target 'VMKit_Tests' do
