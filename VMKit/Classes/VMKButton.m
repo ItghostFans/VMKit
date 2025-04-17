@@ -15,12 +15,12 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self vmk_layoutUpdate];
+    [self layoutUpdate];
 }
 
 - (CGSize)intrinsicContentSize {
     CGSize intrinsicContentSize = [super intrinsicContentSize];
-    switch (self.vmk_layout) {
+    switch (self.layout) {
         case VMKButtonLayoutHTitleImage:
         case VMKButtonLayoutHImageTitle: {
             break;
@@ -43,29 +43,73 @@
 
 #pragma mark - Setter
 
-- (void)setVmk_layout:(VMKButtonLayout)vmk_layout {
-    if (_vmk_layout == vmk_layout) {
+- (void)setContentEdgeInsets:(UIEdgeInsets)contentEdgeInsets {
+    if (_itemSpacing > 0.0f) {
+        switch (self.layout) {
+            case VMKButtonLayoutHTitleImage:
+            case VMKButtonLayoutHImageTitle: {
+                contentEdgeInsets.left += self.itemSpacing / 2;
+                contentEdgeInsets.right += self.itemSpacing / 2;
+                break;
+            }
+            case VMKButtonLayoutVImageTitle:
+            case VMKButtonLayoutVTitleImage: {
+                contentEdgeInsets.top += self.itemSpacing / 2;
+                contentEdgeInsets.bottom += self.itemSpacing / 2;
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+    [super setContentEdgeInsets:contentEdgeInsets];
+}
+
+- (void)setLayout:(VMKButtonLayout)layout {
+    if (_layout == layout) {
         return;
     }
-    _vmk_layout = vmk_layout;
+    _layout = layout;
     [self setNeedsLayout];
 }
 
-- (void)setVmk_itemSpacing:(CGFloat)vmk_itemSpacing {
-    if (_vmk_itemSpacing == vmk_itemSpacing) {
+- (void)setItemSpacing:(CGFloat)itemSpacing {
+    if (_itemSpacing == itemSpacing) {
         return;
     }
-    _vmk_itemSpacing = vmk_itemSpacing;
+    UIEdgeInsets contentEdgeInsets = self.contentEdgeInsets;
+    if (_itemSpacing > 0.0f) {  // 先恢复外部设置进来的。
+        switch (self.layout) {
+            case VMKButtonLayoutHTitleImage:
+            case VMKButtonLayoutHImageTitle: {
+                contentEdgeInsets.left -= self.itemSpacing / 2;
+                contentEdgeInsets.right -= self.itemSpacing / 2;
+                break;
+            }
+            case VMKButtonLayoutVImageTitle:
+            case VMKButtonLayoutVTitleImage: {
+                contentEdgeInsets.top -= self.itemSpacing / 2;
+                contentEdgeInsets.bottom -= self.itemSpacing / 2;
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+    _itemSpacing = itemSpacing;
+    [self setContentEdgeInsets:contentEdgeInsets];
     [self setNeedsLayout];
 }
 
 #pragma mark - private
 
-- (void)vmk_layoutUpdate {
+- (void)layoutUpdate {
     UIEdgeInsets titleEdgeInsets = UIEdgeInsetsZero;
     UIEdgeInsets imageEdgeInsets = UIEdgeInsetsZero;
-    CGFloat itemSpacing2 = self.vmk_itemSpacing / 2;
-    switch (self.vmk_layout) {
+    CGFloat itemSpacing2 = self.itemSpacing / 2;
+    switch (self.layout) {
         case VMKButtonLayoutHTitleImage: {
             // 后图前标题
             titleEdgeInsets = UIDirectionalEdgesInsetsMake(

@@ -21,6 +21,12 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
+		78801C6C2DAE86C20016A9AA /* VMKDemoTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78801C6B2DAE86C20016A9AA /* VMKDemoTableController.m */; };
+		78801C732DAE87460016A9AA /* VMKDemoTableControllerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78801C722DAE87460016A9AA /* VMKDemoTableControllerViewModel.m */; };
+		78801C762DAE87960016A9AA /* VMKDemoTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78801C752DAE87960016A9AA /* VMKDemoTableHeaderView.m */; };
+		78801C792DAE87C30016A9AA /* VMKDemoSectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78801C782DAE87C30016A9AA /* VMKDemoSectionViewModel.m */; };
+		78801C7C2DAE89920016A9AA /* VMKDemoButtonTableCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78801C7B2DAE89920016A9AA /* VMKDemoButtonTableCellViewModel.m */; };
+		78801C7F2DAE89A90016A9AA /* VMKDemoButtonTableViewModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78801C7E2DAE89A90016A9AA /* VMKDemoButtonTableViewModelCell.m */; };
 		788B0C9F2DAB69BA00DB2FD2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 788B0C9D2DAB69BA00DB2FD2 /* Localizable.strings */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		94F180EF5D7AB162066248B3 /* Pods_VMKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 987D7C95E24AAB4E99EC19B1 /* Pods_VMKit_Tests.framework */; };
@@ -63,6 +69,18 @@
 		6003F5BB195388D20070C39A /* Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		78801C6A2DAE86C20016A9AA /* VMKDemoTableController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMKDemoTableController.h; sourceTree = "<group>"; };
+		78801C6B2DAE86C20016A9AA /* VMKDemoTableController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMKDemoTableController.m; sourceTree = "<group>"; };
+		78801C712DAE87460016A9AA /* VMKDemoTableControllerViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMKDemoTableControllerViewModel.h; sourceTree = "<group>"; };
+		78801C722DAE87460016A9AA /* VMKDemoTableControllerViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMKDemoTableControllerViewModel.m; sourceTree = "<group>"; };
+		78801C742DAE87960016A9AA /* VMKDemoTableHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMKDemoTableHeaderView.h; sourceTree = "<group>"; };
+		78801C752DAE87960016A9AA /* VMKDemoTableHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMKDemoTableHeaderView.m; sourceTree = "<group>"; };
+		78801C772DAE87C30016A9AA /* VMKDemoSectionViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMKDemoSectionViewModel.h; sourceTree = "<group>"; };
+		78801C782DAE87C30016A9AA /* VMKDemoSectionViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMKDemoSectionViewModel.m; sourceTree = "<group>"; };
+		78801C7A2DAE89920016A9AA /* VMKDemoButtonTableCellViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMKDemoButtonTableCellViewModel.h; sourceTree = "<group>"; };
+		78801C7B2DAE89920016A9AA /* VMKDemoButtonTableCellViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMKDemoButtonTableCellViewModel.m; sourceTree = "<group>"; };
+		78801C7D2DAE89A90016A9AA /* VMKDemoButtonTableViewModelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMKDemoButtonTableViewModelCell.h; sourceTree = "<group>"; };
+		78801C7E2DAE89A90016A9AA /* VMKDemoButtonTableViewModelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMKDemoButtonTableViewModelCell.m; sourceTree = "<group>"; };
 		788B0C972DAB683A00DB2FD2 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		788B0C9E2DAB69BA00DB2FD2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		788B0CA02DAB69EB00DB2FD2 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -137,6 +155,7 @@
 		6003F593195388D20070C39A /* Example for VMKit */ = {
 			isa = PBXGroup;
 			children = (
+				78801C6D2DAE86C70016A9AA /* Demo */,
 				6003F59C195388D20070C39A /* AppDelegate.h */,
 				6003F59D195388D20070C39A /* AppDelegate.m */,
 				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
@@ -188,6 +207,49 @@
 				4219358C0358C6AA2D0DE998 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		78801C6D2DAE86C70016A9AA /* Demo */ = {
+			isa = PBXGroup;
+			children = (
+				78801C6F2DAE86F90016A9AA /* Cell */,
+				78801C6E2DAE86F30016A9AA /* Header */,
+				78801C6A2DAE86C20016A9AA /* VMKDemoTableController.h */,
+				78801C6B2DAE86C20016A9AA /* VMKDemoTableController.m */,
+				78801C712DAE87460016A9AA /* VMKDemoTableControllerViewModel.h */,
+				78801C722DAE87460016A9AA /* VMKDemoTableControllerViewModel.m */,
+				78801C772DAE87C30016A9AA /* VMKDemoSectionViewModel.h */,
+				78801C782DAE87C30016A9AA /* VMKDemoSectionViewModel.m */,
+			);
+			path = Demo;
+			sourceTree = "<group>";
+		};
+		78801C6E2DAE86F30016A9AA /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				78801C742DAE87960016A9AA /* VMKDemoTableHeaderView.h */,
+				78801C752DAE87960016A9AA /* VMKDemoTableHeaderView.m */,
+			);
+			path = Header;
+			sourceTree = "<group>";
+		};
+		78801C6F2DAE86F90016A9AA /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				78801C702DAE87040016A9AA /* Button */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		78801C702DAE87040016A9AA /* Button */ = {
+			isa = PBXGroup;
+			children = (
+				78801C7A2DAE89920016A9AA /* VMKDemoButtonTableCellViewModel.h */,
+				78801C7B2DAE89920016A9AA /* VMKDemoButtonTableCellViewModel.m */,
+				78801C7D2DAE89A90016A9AA /* VMKDemoButtonTableViewModelCell.h */,
+				78801C7E2DAE89A90016A9AA /* VMKDemoButtonTableViewModelCell.m */,
+			);
+			path = Button;
 			sourceTree = "<group>";
 		};
 		7B98090818CB53593033AF72 /* Pods */ = {
@@ -404,9 +466,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78801C762DAE87960016A9AA /* VMKDemoTableHeaderView.m in Sources */,
 				6003F59E195388D20070C39A /* AppDelegate.m in Sources */,
+				78801C7F2DAE89A90016A9AA /* VMKDemoButtonTableViewModelCell.m in Sources */,
 				6003F5A7195388D20070C39A /* ViewController.m in Sources */,
+				78801C792DAE87C30016A9AA /* VMKDemoSectionViewModel.m in Sources */,
+				78801C6C2DAE86C20016A9AA /* VMKDemoTableController.m in Sources */,
+				78801C7C2DAE89920016A9AA /* VMKDemoButtonTableCellViewModel.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				78801C732DAE87460016A9AA /* VMKDemoTableControllerViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

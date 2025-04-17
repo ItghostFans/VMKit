@@ -55,6 +55,26 @@
     }];
     vTitleImageButton.contentEdgeInsets = UIEdgeInsetsMake(15.0f, 10.0f, 15.0f, 10.0f);
     
+//    UIView *view = UIView.new;
+//    view.backgroundColor = UIColor.blueColor;
+//    [self.view addSubview:view];
+//    
+//    VMKLabel *contentLabel = VMKLabel.new;
+//    contentLabel.text = @"ABCDEFG";
+//    contentLabel.transform = CGAffineTransformMakeRotation(M_PI_2);
+//    [view addSubview:contentLabel];
+//    [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.center.equalTo(view);
+//    }];
+//    
+//    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(vTitleImageButton.mas_bottom);
+//        make.centerX.equalTo(self.view);
+//        make.width.equalTo(contentLabel.mas_height);
+//        make.height.equalTo(contentLabel.mas_width);
+//    }];
+    
+    
 //    UITextView *textView = UITextView.new;
 //    textView.font = [UIFont systemFontOfSize:12.0f];
 //    textView.layer.borderColor = UIColor.redColor.CGColor;
@@ -80,8 +100,8 @@
     [button setTitleColor:UIColor.blackColor forState:(UIControlStateNormal)];
     [button setTitle:title forState:(UIControlStateNormal)];
     [button setImage:[UIImage systemImageNamed:@"heart.fill"] forState:(UIControlStateNormal)];
-    button.vmk_layout = layout;
-    button.vmk_itemSpacing = 10.0f;
+    button.layout = layout;
+    button.itemSpacing = 10.0f;
     [self.view addSubview:button];
     [button mas_makeConstraints:constraintsBlock];
     return button;
