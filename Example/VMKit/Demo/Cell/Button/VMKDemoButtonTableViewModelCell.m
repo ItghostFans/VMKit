@@ -57,6 +57,7 @@
     [button setImage:[UIImage systemImageNamed:@"heart.fill"] forState:(UIControlStateNormal)];
     button.layout = layout;
     button.itemSpacing = 10.0f;
+    button.contentEdgeInsets = UIEdgeInsetsMake(5.0f, 5.0f, 5.0f, 5.0f);
     [self.contentView addSubview:button];
     [button mas_makeConstraints:constraintsBlock];
     return button;
@@ -69,6 +70,7 @@
         return _hImageTitleButton;
     }
     VMKButton *hImageTitleButton = [self createButton:NSLocalizedString(@"前图后标题", nil) layout:(VMKButtonLayoutHImageTitle) constraintsBlock:^(MASConstraintMaker *make) {
+        make.width.lessThanOrEqualTo(self.contentView).multipliedBy(0.45f);
         make.top.equalTo(self.contentView).offset(5.0f);
         make.leading.equalTo(self.contentView).offset(5.0f);
     }];
@@ -81,6 +83,7 @@
         return _hTitleImageButton;
     }
     VMKButton *hTitleImageButton = [self createButton:NSLocalizedString(@"后图前标题", nil) layout:(VMKButtonLayoutHTitleImage) constraintsBlock:^(MASConstraintMaker *make) {
+        make.width.lessThanOrEqualTo(self.contentView).multipliedBy(0.45f);
         make.top.equalTo(self.hImageTitleButton.mas_bottom).offset(5.0f);
         make.leading.equalTo(self.contentView).offset(5.0f);
     }];
@@ -93,6 +96,7 @@
         return _vImageTitleButton;
     }
     VMKButton *vImageTitleButton = [self createButton:NSLocalizedString(@"上图下标题", nil) layout:(VMKButtonLayoutVImageTitle) constraintsBlock:^(MASConstraintMaker *make) {
+        make.width.lessThanOrEqualTo(self.contentView).multipliedBy(0.45f);
         make.top.equalTo(self.contentView).offset(5.0f);
         make.leading.equalTo(self.hImageTitleButton.mas_trailing).offset(5.0f);
     }];
@@ -105,6 +109,7 @@
         return _vTitleImageButton;
     }
     VMKButton *vTitleImageButton = [self createButton:NSLocalizedString(@"下图上标题", nil) layout:(VMKButtonLayoutVTitleImage) constraintsBlock:^(MASConstraintMaker *make) {
+        make.width.lessThanOrEqualTo(self.contentView).multipliedBy(0.45f);
         make.top.equalTo(self.vImageTitleButton.mas_bottom).offset(5.0f);
         make.leading.equalTo(self.hImageTitleButton.mas_trailing).offset(5.0f);
         make.bottom.equalTo(self.contentView).offset(-5.0f);
@@ -121,7 +126,7 @@
     [cell mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(width);
     }];
-    CGSize cellSize = [cell.contentView sizeThatFits:CGSizeMake(width, 0.0f)];
+//    CGSize cellSize = [cell.contentView sizeThatFits:CGSizeMake(width, 0.0f)];
     return 5.0f + [cell.vImageTitleButton intrinsicContentSize].height + 5.0f + [cell.vTitleImageButton intrinsicContentSize].height + 5.0;
 }
 

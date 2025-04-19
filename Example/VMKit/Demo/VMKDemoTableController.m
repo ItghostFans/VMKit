@@ -8,15 +8,20 @@
 
 #import "VMKDemoTableController.h"
 #import "VMKDemoTableControllerViewModel.h"
-#import <ViewModel/TableViewModel.h>
+#import "VMKDemoSectionViewModel.h"
 
+#import <ViewModel/TableViewModel.h>
+#import <ViewModel/TableViewModel+UITableViewDataSource.h>
 #import <Masonry/Masonry.h>
 
-@interface VMKDemoTableController ()
+@interface VMKDemoTableController () <UITableViewDataSource>
 // TODO: 添加需要的View，建议使用懒加载
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wprotocol"
 @implementation VMKDemoTableController
+#pragma clang diagnostic pop
 
 //- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
 //    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -48,6 +53,7 @@
     }];
     [self.view layoutIfNeeded];
     self.viewModel.tableViewModel.tableView = self.tableView;
+    self.tableView.dataSource = self;
 }
 
 #pragma mark - Public
@@ -59,5 +65,15 @@
 #pragma mark - Getter
 
 // TODO: 添加需要的View，建议使用懒加载
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    VMKDemoSectionViewModel *sectionViewModel = self.viewModel.tableViewModel.sectionViewModels[section];
+    if (sectionViewModel.fold) {
+        return 0;
+    }
+    return [self.viewModel.tableViewModel tableView:tableView numberOfRowsInSection:section];
+}
 
 @end

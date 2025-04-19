@@ -29,7 +29,22 @@
         self.textColor = UILabel.appearance.textColor;
         self.numberOfLines = UILabel.appearance.numberOfLines;
         self.lineBreakMode  = UILabel.appearance.lineBreakMode;
-        self.textAlignment = UILabel.appearance.textAlignment;
+        
+        switch ([UIView userInterfaceLayoutDirectionForSemanticContentAttribute:UIView.appearance.semanticContentAttribute]) {
+            case UIUserInterfaceLayoutDirectionLeftToRight: {
+                self.textAlignment = NSTextAlignmentNatural;
+                _paragraphStyle.baseWritingDirection = NSWritingDirectionLeftToRight;
+                break;
+            }
+            case UIUserInterfaceLayoutDirectionRightToLeft: {
+                self.textAlignment = NSTextAlignmentNatural;
+                _paragraphStyle.baseWritingDirection = NSWritingDirectionRightToLeft;
+                break;
+            }
+            default: {
+                break;
+            }
+        }
         self.backgroundColor = UIColor.clearColor;
         self.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
@@ -95,7 +110,14 @@
 }
 
 - (void)setNumberOfLines:(NSInteger)numberOfLines {
-    _textContainer.maximumNumberOfLines = self.numberOfLines;
+    _textContainer.maximumNumberOfLines = numberOfLines;
+    if (numberOfLines == 1) {
+        [self setContentHuggingPriority:(UILayoutPriorityDefaultHigh) forAxis:(UILayoutConstraintAxisVertical)];
+        [self setContentCompressionResistancePriority:(UILayoutPriorityDefaultLow) forAxis:(UILayoutConstraintAxisVertical)];
+    } else {
+        [self setContentHuggingPriority:(UILayoutPriorityDefaultLow) forAxis:(UILayoutConstraintAxisVertical)];
+        [self setContentCompressionResistancePriority:(UILayoutPriorityDefaultHigh) forAxis:(UILayoutConstraintAxisVertical)];
+    }
     [self setNeedsLayout];
 }
 
@@ -148,7 +170,10 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    _textContainer.size = self.bounds.size;
+    if (!CGSizeEqualToSize(_textContainer.size, self.bounds.size)) {
+        _textContainer.size = self.bounds.size;
+        [self invalidateIntrinsicContentSize];
+    }
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -169,8 +194,8 @@
     CGFloat distance = 0.0f;
     NSUInteger characterIndex = [_layoutManager characterIndexForPoint:location inTextContainer:_textContainer fractionOfDistanceBetweenInsertionPoints:&distance];
     
-    NSRange range;
-    NSDictionary *attributes = [_textStorage attributesAtIndex:characterIndex effectiveRange:&range];
+//    NSRange range;
+//    NSDictionary *attributes = [_textStorage attributesAtIndex:characterIndex effectiveRange:&range];
     if (characterIndex < _textStorage.string.length) {
         NSString *clickedCharacter = [_textStorage.string substringWithRange:NSMakeRange(characterIndex, 1)];
         NSLog(@"Click %@", clickedCharacter);

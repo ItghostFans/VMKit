@@ -8,6 +8,7 @@
 
 #import "VMKDemoSectionViewModel.h"
 
+#import <ViewModel/TableViewModel.h>
 #import <ViewModel/SectionViewModel+TableView.h>
 #import <ViewModel/SectionViewModel+CollectionView.h>
 
@@ -27,6 +28,10 @@
 #import "VMKDemoCollectionFooterView.h"
 #endif // #if __has_include("VMKDemoCollectionFooterView.h")
 
+@interface VMKDemoSectionViewModel ()
+@property (assign, nonatomic) BOOL fold;
+@end
+
 @implementation VMKDemoSectionViewModel
 
 - (instancetype)initWithViewModels:(NSArray *)viewModels title:(NSString *)title {
@@ -34,6 +39,14 @@
         _title = title;
     }
     return self;
+}
+
+- (void)setFold:(BOOL)fold {
+    _fold = fold;
+    NSUInteger index = self.tableViewModel.sectionViewModels ? [self.tableViewModel.sectionViewModels indexOfViewModel:self] : NSNotFound;
+    if (index != NSNotFound) {
+        [self.tableViewModel.tableView reloadSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:(UITableViewRowAnimationNone)];
+    }
 }
 
 #pragma mark - TableView

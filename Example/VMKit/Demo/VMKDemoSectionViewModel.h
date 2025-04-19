@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic pop
 
 @property (strong, nonatomic, nonnull, readonly) NSString *title;
+@property (assign, nonatomic, readonly) BOOL fold;
 
 - (instancetype)initWithViewModels:(NSArray * _Nullable)viewModels title:(NSString * _Nonnull)title;
 
