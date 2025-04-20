@@ -19,6 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (assign, nonatomic) NSLineBreakMode lineBreakMode;
 @property (assign, nonatomic) NSTextAlignment textAlignment;
 
+#pragma mark - VMKLabel
+
+- (NSAttributedString *)attributedTextAtPoint:(CGPoint)point;
+- (NSAttributedString *)attributedCharacterAtPoint:(CGPoint)point;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

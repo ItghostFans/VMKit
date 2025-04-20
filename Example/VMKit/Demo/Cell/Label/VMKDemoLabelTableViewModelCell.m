@@ -22,6 +22,14 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        {
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSingleLabelTap:)];
+            [self.singleLineLabel addGestureRecognizer:tap];
+        }
+        {
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onLinkLabelTap:)];
+            [self.linkLabel addGestureRecognizer:tap];
+        }
     }
     return self;
 }
@@ -34,22 +42,37 @@
         return;
     }
     @weakify(self);
-    self.singleLineLabel.text = @"single硒鼓相映成趣；是枯井ksdjf枯井ksdjfsdjfdsfdsl；fjsdfj顺；架国；吴三桂";
-    self.linkLabel.text = @"link硒鼓相映成趣；是枯井ksdjf枯井ksdjfsdjfdsfdsl；fjsdfj顺；架国；吴三桂";
+    NSMutableAttributedString *singleText = [[NSMutableAttributedString alloc] initWithString:@"single硒鼓相映成趣；是枯井ksdjf枯井ksdjfsdjfdsfdsl；fjsdfj顺；架国；吴三桂"];
+    NSRange singleLinkRange = [singleText.string rangeOfString:@"djf枯井ksdjfsdjfdsfdsl；fjsdfj顺；架国；吴三"];
+    [singleText setAttributes:@{
+        NSForegroundColorAttributeName: UIColor.systemBlueColor,
+    } range:singleLinkRange];
+    self.singleLineLabel.attributedText = singleText;
     
-    [[self.singleLineLabel rac_signalForSelector:@selector(layoutSubviews)] subscribeNext:^(RACTuple * _Nullable x) {
-        @strongify(self);
-        NSLog(@"");
-    }];
-    [[self.linkLabel rac_signalForSelector:@selector(layoutSubviews)] subscribeNext:^(RACTuple * _Nullable x) {
-        @strongify(self);
-        NSLog(@"");
-    }];
+    
+    NSMutableAttributedString *linkText = [[NSMutableAttributedString alloc] initWithString:@"link硒鼓相映成趣；是枯井ksdjf枯井ksdjfsdjfdsfdsl；fjsdfj顺；架国；吴三桂"];
+    NSRange linkRange = [linkText.string rangeOfString:@"djf枯井ksdjfsdjfdsfdsl；fjsdfj顺；架国；吴三"];
+    [linkText setAttributes:@{
+        NSForegroundColorAttributeName: UIColor.systemBlueColor,
+    } range:linkRange];
+    self.linkLabel.attributedText = linkText;
 }
 
 #pragma mark - Public
 
 #pragma mark - Actions
+
+- (void)onSingleLabelTap:(UITapGestureRecognizer *)tap {
+    CGPoint point = [tap locationInView:tap.view];
+    NSAttributedString *attributedCharacter = [self.singleLineLabel attributedCharacterAtPoint:point];
+    NSAttributedString *attributedText = [self.singleLineLabel attributedTextAtPoint:point];
+}
+
+- (void)onLinkLabelTap:(UITapGestureRecognizer *)tap {
+    CGPoint point = [tap locationInView:tap.view];
+    NSAttributedString *attributedCharacter = [self.linkLabel attributedCharacterAtPoint:point];
+    NSAttributedString *attributedText = [self.linkLabel attributedTextAtPoint:point];
+}
 
 #pragma mark - Private
 

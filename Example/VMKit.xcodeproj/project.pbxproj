@@ -48,7 +48,7 @@
 /* Begin PBXFileReference section */
 		1A718CC637F99E0F3084FAA9 /* Pods-VMKit_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VMKit_Tests.debug.xcconfig"; path = "Target Support Files/Pods-VMKit_Tests/Pods-VMKit_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		2C75F9567E0B4E6946C940AE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		3A059DF689325C7C74E26032 /* VMKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = VMKit.podspec; path = ../VMKit.podspec; sourceTree = "<group>"; };
+		3A059DF689325C7C74E26032 /* VMKit.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = VMKit.podspec; path = ../VMKit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		4219358C0358C6AA2D0DE998 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		57C03EF582135F3C7B2F1545 /* Pods-VMKit_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VMKit_Example.release.xcconfig"; path = "Target Support Files/Pods-VMKit_Example/Pods-VMKit_Example.release.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* VMKit_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VMKit_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };

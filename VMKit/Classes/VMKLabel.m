@@ -7,6 +7,8 @@
 
 #import "VMKLabel.h"
 
+#import <ReactiveObjC/ReactiveObjC.h>
+
 @interface VMKLabel ()
 
 @property (strong, nonatomic) NSTextContainer *textContainer;
@@ -47,8 +49,6 @@
         }
         self.backgroundColor = UIColor.clearColor;
         self.userInteractionEnabled = YES;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
-        [self addGestureRecognizer:tap];
     }
     return self;
 }
@@ -185,21 +185,44 @@
     }
 }
 
-#pragma mark - Actions
+#pragma mark - VMKLabel
 
-- (void)onTap:(UITapGestureRecognizer *)tap {
-    CGPoint location = [tap locationInView:self];
-    CGRect textRect = [_layoutManager boundingRectForGlyphRange:NSMakeRange(0, _layoutManager.numberOfGlyphs) inTextContainer:_textContainer];
-    location.y -= CGRectGetMidY(self.bounds) - CGRectGetMidY(textRect);
-    CGFloat distance = 0.0f;
-    NSUInteger characterIndex = [_layoutManager characterIndexForPoint:location inTextContainer:_textContainer fractionOfDistanceBetweenInsertionPoints:&distance];
-    
-//    NSRange range;
-//    NSDictionary *attributes = [_textStorage attributesAtIndex:characterIndex effectiveRange:&range];
-    if (characterIndex < _textStorage.string.length) {
-        NSString *clickedCharacter = [_textStorage.string substringWithRange:NSMakeRange(characterIndex, 1)];
-        NSLog(@"Click %@", clickedCharacter);
+- (NSAttributedString *)attributedTextAtPoint:(CGPoint)point {
+    @weakify(self);
+    NSUInteger characterIndex = [self indexAtPoint:point];
+    __block NSAttributedString *attributedText = nil;
+    if (characterIndex != NSNotFound && characterIndex < _textStorage.length) {
+        [_textStorage enumerateAttributesInRange:NSMakeRange(0, _textStorage.length) options:(NSAttributedStringEnumerationOptions)0 usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
+            @strongify(self);
+            if (NSLocationInRange(characterIndex, range)) {
+                attributedText = [self.textStorage attributedSubstringFromRange:range];
+                *stop = YES;
+            }
+        }];
     }
+    return attributedText;
+}
+
+
+- (NSAttributedString *)attributedCharacterAtPoint:(CGPoint)point {
+    NSUInteger characterIndex = [self indexAtPoint:point];
+    if (characterIndex != NSNotFound && characterIndex < _textStorage.length) {
+        return [_textStorage attributedSubstringFromRange:NSMakeRange(characterIndex, 1)];
+    }
+    return nil;
+}
+
+#pragma mark - Private
+
+- (NSUInteger)indexAtPoint:(CGPoint)point {
+    if (!_textStorage.length) {
+        return NSNotFound;
+    }
+    CGRect textRect = [_layoutManager boundingRectForGlyphRange:NSMakeRange(0, _layoutManager.numberOfGlyphs) inTextContainer:_textContainer];
+    point.y -= CGRectGetMidY(self.bounds) - CGRectGetMidY(textRect);
+    CGFloat distance = 0.0f;
+    NSUInteger characterIndex = [_layoutManager characterIndexForPoint:point inTextContainer:_textContainer fractionOfDistanceBetweenInsertionPoints:&distance];
+    return characterIndex;
 }
 
 @end
