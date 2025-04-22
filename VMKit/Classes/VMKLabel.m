@@ -220,6 +220,9 @@
     }
     CGRect textRect = [_layoutManager boundingRectForGlyphRange:NSMakeRange(0, _layoutManager.numberOfGlyphs) inTextContainer:_textContainer];
     point.y -= CGRectGetMidY(self.bounds) - CGRectGetMidY(textRect);
+    if (!CGRectContainsPoint(textRect, point)) {
+        return NSNotFound;
+    }
     CGFloat distance = 0.0f;
     NSUInteger characterIndex = [_layoutManager characterIndexForPoint:point inTextContainer:_textContainer fractionOfDistanceBetweenInsertionPoints:&distance];
     return characterIndex;

@@ -30,6 +30,8 @@
 		788B0C9F2DAB69BA00DB2FD2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 788B0C9D2DAB69BA00DB2FD2 /* Localizable.strings */; };
 		78EE37A42DB2C1D200E0BCC8 /* VMKDemoLabelTableCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78EE37A32DB2C1D200E0BCC8 /* VMKDemoLabelTableCellViewModel.m */; };
 		78EE37A72DB2C1EF00E0BCC8 /* VMKDemoLabelTableViewModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78EE37A62DB2C1EF00E0BCC8 /* VMKDemoLabelTableViewModelCell.m */; };
+		78EE37B22DB668E100E0BCC8 /* VMKDemoProgressViewTableCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78EE37B12DB668E100E0BCC8 /* VMKDemoProgressViewTableCellViewModel.m */; };
+		78EE37B52DB668FA00E0BCC8 /* VMKDemoProgressViewTableViewModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 78EE37B42DB668FA00E0BCC8 /* VMKDemoProgressViewTableViewModelCell.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		94F180EF5D7AB162066248B3 /* Pods_VMKit_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 987D7C95E24AAB4E99EC19B1 /* Pods_VMKit_Tests.framework */; };
 		BF36C7C9577EE62F5EF3BB1C /* Pods_VMKit_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BBCDCF932C0D8A8EB1DE8B1 /* Pods_VMKit_Example.framework */; };
@@ -90,6 +92,10 @@
 		78EE37A32DB2C1D200E0BCC8 /* VMKDemoLabelTableCellViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMKDemoLabelTableCellViewModel.m; sourceTree = "<group>"; };
 		78EE37A52DB2C1EF00E0BCC8 /* VMKDemoLabelTableViewModelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMKDemoLabelTableViewModelCell.h; sourceTree = "<group>"; };
 		78EE37A62DB2C1EF00E0BCC8 /* VMKDemoLabelTableViewModelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMKDemoLabelTableViewModelCell.m; sourceTree = "<group>"; };
+		78EE37B02DB668E100E0BCC8 /* VMKDemoProgressViewTableCellViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMKDemoProgressViewTableCellViewModel.h; sourceTree = "<group>"; };
+		78EE37B12DB668E100E0BCC8 /* VMKDemoProgressViewTableCellViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMKDemoProgressViewTableCellViewModel.m; sourceTree = "<group>"; };
+		78EE37B32DB668FA00E0BCC8 /* VMKDemoProgressViewTableViewModelCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VMKDemoProgressViewTableViewModelCell.h; sourceTree = "<group>"; };
+		78EE37B42DB668FA00E0BCC8 /* VMKDemoProgressViewTableViewModelCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMKDemoProgressViewTableViewModelCell.m; sourceTree = "<group>"; };
 		78FD93C62DB2A5E8007A00C9 /* VMKDemoSectionViewModel+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VMKDemoSectionViewModel+Private.h"; sourceTree = "<group>"; };
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8BBCDCF932C0D8A8EB1DE8B1 /* Pods_VMKit_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VMKit_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +250,7 @@
 		78801C6F2DAE86F90016A9AA /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				78EE37AF2DB668BD00E0BCC8 /* ProgressView */,
 				78FD93C72DB2BF2E007A00C9 /* Label */,
 				78801C702DAE87040016A9AA /* Button */,
 			);
@@ -259,6 +266,17 @@
 				78801C7E2DAE89A90016A9AA /* VMKDemoButtonTableViewModelCell.m */,
 			);
 			path = Button;
+			sourceTree = "<group>";
+		};
+		78EE37AF2DB668BD00E0BCC8 /* ProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				78EE37B02DB668E100E0BCC8 /* VMKDemoProgressViewTableCellViewModel.h */,
+				78EE37B12DB668E100E0BCC8 /* VMKDemoProgressViewTableCellViewModel.m */,
+				78EE37B32DB668FA00E0BCC8 /* VMKDemoProgressViewTableViewModelCell.h */,
+				78EE37B42DB668FA00E0BCC8 /* VMKDemoProgressViewTableViewModelCell.m */,
+			);
+			path = ProgressView;
 			sourceTree = "<group>";
 		};
 		78FD93C72DB2BF2E007A00C9 /* Label */ = {
@@ -490,7 +508,9 @@
 				78EE37A72DB2C1EF00E0BCC8 /* VMKDemoLabelTableViewModelCell.m in Sources */,
 				78801C762DAE87960016A9AA /* VMKDemoTableHeaderView.m in Sources */,
 				6003F59E195388D20070C39A /* AppDelegate.m in Sources */,
+				78EE37B52DB668FA00E0BCC8 /* VMKDemoProgressViewTableViewModelCell.m in Sources */,
 				78801C7F2DAE89A90016A9AA /* VMKDemoButtonTableViewModelCell.m in Sources */,
+				78EE37B22DB668E100E0BCC8 /* VMKDemoProgressViewTableCellViewModel.m in Sources */,
 				6003F5A7195388D20070C39A /* ViewController.m in Sources */,
 				78801C792DAE87C30016A9AA /* VMKDemoSectionViewModel.m in Sources */,
 				78801C6C2DAE86C20016A9AA /* VMKDemoTableController.m in Sources */,

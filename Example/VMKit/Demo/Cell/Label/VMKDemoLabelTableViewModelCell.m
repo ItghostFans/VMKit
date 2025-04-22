@@ -41,7 +41,7 @@
         // 防止这里不必要的UI刷新。
         return;
     }
-    @weakify(self);
+//    @weakify(self);
     NSMutableAttributedString *singleText = [[NSMutableAttributedString alloc] initWithString:@"single硒鼓相映成趣；是枯井ksdjf枯井ksdjfsdjfdsfdsl；fjsdfj顺；架国；吴三桂"];
     NSRange singleLinkRange = [singleText.string rangeOfString:@"djf枯井ksdjfsdjfdsfdsl；fjsdfj顺；架国；吴三"];
     [singleText setAttributes:@{

@@ -12,6 +12,7 @@
 #import "VMKDemoSectionViewModel.h"
 #import "VMKDemoButtonTableCellViewModel.h"
 #import "VMKDemoLabelTableCellViewModel.h"
+#import "VMKDemoProgressViewTableCellViewModel.h"
 
 @implementation VMKDemoTableControllerViewModel
 
@@ -26,6 +27,12 @@
         {
             VMKDemoSectionViewModel *sectionViewModel = [[VMKDemoSectionViewModel alloc] initWithViewModels:nil title:NSLocalizedString(@"文本", nil)];
             VMKDemoLabelTableCellViewModel *cellViewModel = VMKDemoLabelTableCellViewModel.new;
+            [sectionViewModel addViewModel:cellViewModel];
+            [self.tableViewModel.sectionViewModels addViewModel:sectionViewModel];
+        }
+        {
+            VMKDemoSectionViewModel *sectionViewModel = [[VMKDemoSectionViewModel alloc] initWithViewModels:nil title:NSLocalizedString(@"进度条", nil)];
+            VMKDemoProgressViewTableCellViewModel *cellViewModel = VMKDemoProgressViewTableCellViewModel.new;
             [sectionViewModel addViewModel:cellViewModel];
             [self.tableViewModel.sectionViewModels addViewModel:sectionViewModel];
         }
