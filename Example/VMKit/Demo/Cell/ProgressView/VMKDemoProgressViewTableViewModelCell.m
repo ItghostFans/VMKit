@@ -23,6 +23,9 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.normalProgress.progress = 0.3f;
         self.bkgProgress.progress = 0.0f;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.bkgProgress setProgress:1.0f animated:YES];
+        });
     }
     return self;
 }
@@ -45,6 +48,7 @@
 #pragma mark - Getter
 
 - (VMKProgressView *)normalProgress {
+//    return nil;
     if (_normalProgress) {
         return _normalProgress;
     }
@@ -64,14 +68,15 @@
     if (_bkgProgress) {
         return _bkgProgress;
     }
-    VMKProgressView *bkgProgress = [[VMKProgressView alloc] initWithStyle:(VMKProgressViewStyleNone)];
+    VMKProgressView *bkgProgress = [[VMKProgressView alloc] initWithStyle:(VMKProgressViewStyleZeroProgress)];
     _bkgProgress = bkgProgress;
     
     _bkgProgress.trackBorderWidth = 0.5f;                 // 背景边宽
     _bkgProgress.trackBorderColor = UIColor.redColor;     // 背景边框颜色
     _bkgProgress.trackCornerRadius = CGSizeMake(10.0f, 20.0f);                 // 背景圆角
     _bkgProgress.progressCornerRadius = CGSizeMake(7.0f, 7.0f);              // 进度条圆角
-    _bkgProgress.corner = UIRectCornerTopRight | UIRectCornerBottomRight;                      // 圆角
+    _bkgProgress.trackCorner = UIRectCornerTopRight | UIRectCornerBottomRight;                      // 圆角
+    _bkgProgress.progressCorner = UIRectCornerTopRight | UIRectCornerBottomRight;                      // 圆角
     _bkgProgress.progressBorderWidth = 1.0f;              // 进度条边宽
     _bkgProgress.progressBorderColor = UIColor.brownColor;   // 进度条边框颜色
     _bkgProgress.trackShadowColor = UIColor.blackColor;      // 背景阴影
@@ -85,7 +90,7 @@
     [_bkgProgress mas_makeConstraints:^(MASConstraintMaker *make) {
         make.leading.equalTo(self.contentView).offset(5.0f);
         make.trailing.equalTo(self.contentView).offset(-5.0f);
-        make.top.equalTo(self.normalProgress.mas_bottom).offset(5.0f);
+        make.top.equalTo(self.normalProgress ? self.normalProgress.mas_bottom : self.contentView).offset(5.0f);
         make.height.mas_equalTo(30);
     }];
     return bkgProgress;
