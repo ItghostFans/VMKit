@@ -118,11 +118,11 @@
 }
 
 - (void)setThumbColor:(UIColor *)thumbColor {
-    _thumbBorderColor = thumbColor;
+    _thumbColor = thumbColor;
     if ([_thumbLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_thumbLayer setBorderColor:_thumbBorderColor.CGColor];
+        [(CAShapeLayer *)_thumbLayer setBorderColor:_thumbColor.CGColor];
     } else {
-        _thumbLayer.borderColor = _thumbBorderColor.CGColor;
+        _thumbLayer.borderColor = _thumbColor.CGColor;
     }
 }
 
