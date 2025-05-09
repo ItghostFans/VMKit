@@ -54,6 +54,9 @@
 }
 
 - (void)setProgress:(CGFloat)progress animated:(BOOL)animated {
+    if (isnan(progress)) {
+        progress = 0.0f;
+    }
     _progress = progress;
     [self updateProgressAnimated:animated];
 }
@@ -111,7 +114,7 @@
 - (void)setThumbBorderColor:(UIColor *)thumbBorderColor {
     _thumbBorderColor = thumbBorderColor;
     if ([_thumbLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_thumbLayer setBorderColor:_thumbBorderColor.CGColor];
+        [(CAShapeLayer *)_thumbLayer setStrokeColor:_thumbBorderColor.CGColor];
     } else {
         _thumbLayer.borderColor = _thumbBorderColor.CGColor;
     }
@@ -120,9 +123,9 @@
 - (void)setThumbColor:(UIColor *)thumbColor {
     _thumbColor = thumbColor;
     if ([_thumbLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_thumbLayer setBorderColor:_thumbColor.CGColor];
+        [(CAShapeLayer *)_thumbLayer setFillColor:_thumbColor.CGColor];
     } else {
-        _thumbLayer.borderColor = _thumbColor.CGColor;
+        _thumbLayer.backgroundColor = _thumbColor.CGColor;
     }
 }
 
@@ -151,7 +154,7 @@
 - (void)setTrackBorderColor:(UIColor *)trackBorderColor {
     _trackBorderColor = trackBorderColor;
     if ([_trackLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_trackLayer setBorderColor:_trackBorderColor.CGColor];
+        [(CAShapeLayer *)_trackLayer setStrokeColor:_trackBorderColor.CGColor];
     } else {
         _trackLayer.borderColor = _trackBorderColor.CGColor;
     }
@@ -169,7 +172,7 @@
 - (void)setProgressBorderColor:(UIColor *)progressBorderColor {
     _progressBorderColor = progressBorderColor;
     if ([_trackLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_progressLayer setBorderColor:_progressBorderColor.CGColor];
+        [(CAShapeLayer *)_progressLayer setStrokeColor:_progressBorderColor.CGColor];
     } else {
         _progressLayer.borderColor = _progressBorderColor.CGColor;
     }
@@ -233,16 +236,16 @@
 
 #pragma mark - Update Track Layer
 
-//- (void)updateLayerCorner:(UIRectCorner)corner
-//             cornerRadius:(CGSize)cornerRadius
-//                fromLayer:(CALayer *)layer
-//                  toLayer:(void(^)(CALayer *layer))toLayer {
+//- (CALayer *)updateLayerCorner:(UIRectCorner)corner
+//                  cornerRadius:(CGSize)cornerRadius
+//                     fromLayer:(CALayer *)layer {
 //    if (corner & UIRectCornerTopLeft &&
 //        corner & UIRectCornerTopRight &&
 //        corner & UIRectCornerBottomRight &&
 //        corner & UIRectCornerBottomLeft) {
+//        CAGradientLayer *gradientLayer = nil;
 //        if ([layer isKindOfClass:CAShapeLayer.class]) {
-//            
+//            [self.layer.sublayers indexOfObject:layer];
 //        }
 //    } else {
 //        if (CGSizeEqualToSize(cornerRadius, CGSizeZero)) {
@@ -251,6 +254,26 @@
 //        }
 //    }
 //}
+
+- (void)updateLayerCorners:(UIRectCorner)corners
+              cornerRadius:(CGSize)cornerRadius
+                 fromLayer:(CALayer *)layer
+              changedLayer:(void(^)(CALayer *layer))changedLayer {
+    if (corners & UIRectCornerTopLeft &&
+        corners & UIRectCornerTopRight &&
+        corners & UIRectCornerBottomRight &&
+        corners & UIRectCornerBottomLeft) { // 全圆角，那就用渐变图层。
+        CAGradientLayer *gradientLayer = nil;
+        if ([layer isKindOfClass:CAShapeLayer.class]) {
+            layer.cornerRadius = cornerRadius.width;
+        }
+    } else {
+        if (CGSizeEqualToSize(cornerRadius, CGSizeZero)) {
+        } else {
+            [self updateProgressAnimated:NO];
+        }
+    }
+}
 
 - (void)updateShapeLayer:(CAShapeLayer *)layer
                  corners:(UIRectCorner)corners
