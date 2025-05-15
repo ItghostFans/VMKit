@@ -156,12 +156,12 @@
     layer.backgroundColor = UIColor.blueColor.CGColor;
     return layer;
 }
-
-- (UIView *)trackViewOfProgressView:(VMKProgressView *)progressView {
-    UIView *view = UIView.new;
-    view.backgroundColor = UIColor.blueColor;
-    return view;
-}
+//
+//- (UIView *)trackViewOfProgressView:(VMKProgressView *)progressView {
+//    UIView *view = UIView.new;
+//    view.backgroundColor = UIColor.blueColor;
+//    return view;
+//}
 
 - (CALayer *)progressLayerOfProgressView:(VMKProgressView *)progressView {
     CALayer *layer = CALayer.layer;
@@ -170,11 +170,11 @@
     return layer;
 }
 
-- (UIView *)progressViewOfProgressView:(VMKProgressView *)progressView {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 20.0f, 20.0f)];
-    view.backgroundColor = UIColor.yellowColor;
-    return view;
-}
+//- (UIView *)progressViewOfProgressView:(VMKProgressView *)progressView {
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 20.0f, 20.0f)];
+//    view.backgroundColor = UIColor.yellowColor;
+//    return view;
+//}
 
 - (CALayer *)thumbLayerOfProgressView:(VMKProgressView *)progressView {
     CALayer *layer = CALayer.layer;
@@ -182,11 +182,11 @@
     layer.backgroundColor = UIColor.redColor.CGColor;
     return layer;
 }
-
-- (UIView *)thumbViewOfProgressView:(VMKProgressView *)progressView {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 30.0f, 30.0f)];
-    view.backgroundColor = UIColor.redColor;
-    return view;
-}
+//
+//- (UIView *)thumbViewOfProgressView:(VMKProgressView *)progressView {
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 30.0f, 30.0f)];
+//    view.backgroundColor = UIColor.redColor;
+//    return view;
+//}
 
 @end
