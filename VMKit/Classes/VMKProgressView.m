@@ -10,44 +10,25 @@
 #import <VMLocalization/UIGeometry+Localization.h>
 
 @interface VMKProgressView ()
-
-// 可能是CAShapeLayer\CAGradientLayer，由对应corner&radius&style决定
+@property (weak, nonatomic) UIView *trackView;
 @property (weak, nonatomic) CALayer *trackLayer;
-@property (weak, nonatomic) CALayer *progressLayer;
-@property (weak, nonatomic) CALayer *thumbLayer;
 
+@property (assign, nonatomic) CGRect progressFrame0;    // 进度条设置进来的Frame，认为是0值Frame。
+
+@property (weak, nonatomic) UIView *progressView;
+@property (weak, nonatomic) CALayer *progressLayer;
+
+@property (weak, nonatomic) UIView *thumbView;
+@property (weak, nonatomic) CALayer *thumbLayer;
 @end
 
 @implementation VMKProgressView
 
-- (instancetype)initWithStyle:(VMKProgressViewStyle)style {
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:(CGRectZero)]) {
-        self.style = style;
-        _trackCorner = UIRectCornerAllCorners;
     }
     return self;
 }
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    [self updateProgressAnimated:NO];
-}
-
-#pragma mark - Private
-
-- (CALayer *)createShapeLayer {
-    CAShapeLayer *layer = CAShapeLayer.layer;
-    [self.layer addSublayer:layer];
-    return layer;
-}
-
-- (CAGradientLayer *)createGradientLayer {
-    CAGradientLayer *layer = CAGradientLayer.layer;
-    [self.layer addSublayer:layer];
-    return layer;
-}
-
-#pragma mark - Setter
 
 - (void)setProgress:(CGFloat)progress {
     [self setProgress:progress animated:NO];
@@ -61,235 +42,55 @@
     [self updateProgressAnimated:animated];
 }
 
-- (void)setStyle:(VMKProgressViewStyle)style {
-    // 这里按默认4个角，半径为0处理。
-    _style = style;
-    if (_style & VMKProgressViewStyleGradientTrack) {
-        _trackLayer = [self createGradientLayer];
-    } else {
-        _trackLayer = [self createShapeLayer];
-        self.trackColor = UIColor.grayColor;
-    }
-    if (_style & VMKProgressViewStyleGradientProgress) {
-        _progressLayer = [self createGradientLayer];
-    } else {
-        _progressLayer = [self createShapeLayer];
-        self.progressColor = UIColor.systemBlueColor;
-    }
-    if (_style & VMKProgressViewStyleNormalThumb) {
-        _thumbLayer = [self createShapeLayer];
-        _thumbColor = UISlider.appearance.thumbTintColor;
+- (void)setSource:(id<VMKProgressViewSource>)source {
+    _source = source;
+    if ([_source respondsToSelector:@selector(trackViewOfProgressView:)]) {
+        UIView *view = [_source trackViewOfProgressView:self];
+        [self addSubview:view];
+        _trackView = view;
     } else
-    if (_style & VMKProgressViewStyleGradientThumb) {
-        _thumbLayer = [self createGradientLayer];
+    if ([_source respondsToSelector:@selector(trackLayerOfProgressView:)]) {
+        CALayer *layer = [_source trackLayerOfProgressView:self];
+        [self.layer addSublayer:layer];
+        _trackLayer = layer;
+    }
+    
+    if ([_source respondsToSelector:@selector(progressViewOfProgressView:)]) {
+        UIView *view = [_source progressViewOfProgressView:self];
+        [self addSubview:view];
+        _progressView = view;
+        _progressFrame0 = CGRectMake(0.0f, 0.0f, CGRectGetWidth(_progressView.frame), CGRectGetHeight(_progressView.frame));
+    } else
+    if ([_source respondsToSelector:@selector(progressLayerOfProgressView:)]) {
+        CALayer *layer = [_source progressLayerOfProgressView:self];
+        [self.layer addSublayer:layer];
+        _progressLayer = layer;
+        _progressFrame0 = CGRectMake(0.0f, 0.0f, CGRectGetWidth(_progressLayer.frame), CGRectGetHeight(_progressLayer.frame));
+    }
+    
+    if ([_source respondsToSelector:@selector(thumbViewOfProgressView:)]) {
+        UIView *view = [_source thumbViewOfProgressView:self];
+        [self addSubview:view];
+        _thumbView = view;
+    } else
+    if ([_source respondsToSelector:@selector(thumbLayerOfProgressView:)]) {
+        CALayer *layer = [_source thumbLayerOfProgressView:self];
+        [self.layer addSublayer:layer];
+        _thumbLayer = layer;
     }
 }
 
-#pragma mark - VMKProgressViewStyleNormalThumb
-
-- (void)setThumbCorner:(UIRectCorner)thumbCorner {
-    _thumbCorner = thumbCorner;
-    if ([_thumbLayer isKindOfClass:CAShapeLayer.class]) {
-       [self updateProgressAnimated:NO];
-   }
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self updateProgressAnimated:NO];
 }
 
-- (void)setThumbCornerRadius:(CGSize)thumbCornerRadius {
-    _thumbCornerRadius = thumbCornerRadius;
-    if ([_thumbLayer isKindOfClass:CAGradientLayer.class]) {
-        _thumbLayer.cornerRadius = _thumbCornerRadius.width;
-    } else {
-        [self updateProgressAnimated:NO];
-    }
-}
+#pragma mark - Private
 
-- (void)setThumbBorderWidth:(CGFloat)thumbBorderWidth {
-    _thumbBorderWidth = thumbBorderWidth;
-    if ([_thumbLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_thumbLayer setLineWidth:_thumbBorderWidth];
-    } else {
-        _thumbLayer.borderWidth = _thumbBorderWidth;
-    }
-}
-- (void)setThumbBorderColor:(UIColor *)thumbBorderColor {
-    _thumbBorderColor = thumbBorderColor;
-    if ([_thumbLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_thumbLayer setStrokeColor:_thumbBorderColor.CGColor];
-    } else {
-        _thumbLayer.borderColor = _thumbBorderColor.CGColor;
-    }
-}
-
-- (void)setThumbColor:(UIColor *)thumbColor {
-    _thumbColor = thumbColor;
-    if ([_thumbLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_thumbLayer setFillColor:_thumbColor.CGColor];
-    } else {
-        _thumbLayer.backgroundColor = _thumbColor.CGColor;
-    }
-}
-
-#pragma mark - VMKProgressViewStyleNone
-
-- (void)setTrackColor:(UIColor *)trackColor {
-    _trackColor = trackColor;
-    if ([_trackLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_trackLayer setFillColor:_trackColor.CGColor];
-    } else {
-//        NSAssert(NO, @"Gradient Track Not Support trackColor!");
-    }
-}
-
-- (void)setProgressColor:(UIColor *)progressColor {
-    _progressColor = progressColor;
-    if ([_progressLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_progressLayer setFillColor:_progressColor.CGColor];
-    } else {
-//        NSAssert(NO, @"Gradient Progress Not Support progressColor!");
-    }
-}
-
-#pragma mark - 通用的样式
-
-- (void)setTrackBorderColor:(UIColor *)trackBorderColor {
-    _trackBorderColor = trackBorderColor;
-    if ([_trackLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_trackLayer setStrokeColor:_trackBorderColor.CGColor];
-    } else {
-        _trackLayer.borderColor = _trackBorderColor.CGColor;
-    }
-}
-
-- (void)setTrackBorderWidth:(CGFloat)trackBorderWidth {
-    _trackBorderWidth = trackBorderWidth;
-    if ([_trackLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_trackLayer setLineWidth:_trackBorderWidth];
-    } else {
-        _trackLayer.borderWidth = _trackBorderWidth;
-    }
-}
-
-- (void)setProgressBorderColor:(UIColor *)progressBorderColor {
-    _progressBorderColor = progressBorderColor;
-    if ([_trackLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_progressLayer setStrokeColor:_progressBorderColor.CGColor];
-    } else {
-        _progressLayer.borderColor = _progressBorderColor.CGColor;
-    }
-}
-
-- (void)setProgressBorderWidth:(CGFloat)progressBorderWidth {
-    _progressBorderWidth = progressBorderWidth;
-    if ([_progressLayer isKindOfClass:CAShapeLayer.class]) {
-        [(CAShapeLayer *)_progressLayer setLineWidth:_progressBorderWidth];
-    } else {
-        _progressLayer.borderWidth = _progressBorderWidth;
-    }
-}
-
-- (void)setTrackCorner:(UIRectCorner)trackCorner {
-    _trackCorner = trackCorner;
-    if ([_trackLayer isKindOfClass:CAShapeLayer.class]) {
-       [self updateProgressAnimated:NO];
-   }
-}
-
-- (void)setTrackCornerRadius:(CGSize)trackCornerRadius {
-    _trackCornerRadius = trackCornerRadius;
-    if ([_trackLayer isKindOfClass:CAGradientLayer.class]) {
-        _trackLayer.cornerRadius = _trackCornerRadius.width;
-    } else {
-        [self updateProgressAnimated:NO];
-    }
-}
-
-- (void)setProgressCorner:(UIRectCorner)progressCorner {
-    _progressCorner = progressCorner;
-    if ([_progressLayer isKindOfClass:CAShapeLayer.class]) {
-       [self updateProgressAnimated:NO];
-   }
-}
-
-- (void)setProgressCornerRadius:(CGSize)progressCornerRadius {
-    _progressCornerRadius = progressCornerRadius;
-    if ([_progressLayer isKindOfClass:CAGradientLayer.class]) {
-        _progressLayer.cornerRadius = _trackCornerRadius.width;
-    } else {
-        [self updateProgressAnimated:NO];
-    }
-}
-
-- (void)setTrackShadowColor:(UIColor *)trackShadowColor {
-    _trackShadowColor = trackShadowColor;
-    self.trackLayer.shadowColor = _trackShadowColor.CGColor;
-}
-
-- (void)setTrackShadowOffset:(CGSize)trackShadowOffset {
-    _trackShadowOffset = trackShadowOffset;
-    self.trackLayer.shadowOffset = _trackShadowOffset;
-}
-
-- (void)setTrackShadowOpacity:(CGFloat)trackShadowOpacity {
-    _trackShadowOpacity = trackShadowOpacity;
-    self.trackLayer.shadowOpacity = _trackShadowOpacity;
-}
-
-#pragma mark - Update Track Layer
-
-//- (CALayer *)updateLayerCorner:(UIRectCorner)corner
-//                  cornerRadius:(CGSize)cornerRadius
-//                     fromLayer:(CALayer *)layer {
-//    if (corner & UIRectCornerTopLeft &&
-//        corner & UIRectCornerTopRight &&
-//        corner & UIRectCornerBottomRight &&
-//        corner & UIRectCornerBottomLeft) {
-//        CAGradientLayer *gradientLayer = nil;
-//        if ([layer isKindOfClass:CAShapeLayer.class]) {
-//            [self.layer.sublayers indexOfObject:layer];
-//        }
-//    } else {
-//        if (CGSizeEqualToSize(cornerRadius, CGSizeZero)) {
-//        } else {
-//            [self updateProgressAnimated:NO];
-//        }
-//    }
-//}
-
-- (void)updateLayerCorners:(UIRectCorner)corners
-              cornerRadius:(CGSize)cornerRadius
-                 fromLayer:(CALayer *)layer
-              changedLayer:(void(^)(CALayer *layer))changedLayer {
-    if (corners & UIRectCornerTopLeft &&
-        corners & UIRectCornerTopRight &&
-        corners & UIRectCornerBottomRight &&
-        corners & UIRectCornerBottomLeft) { // 全圆角，那就用渐变图层。
-        CAGradientLayer *gradientLayer = nil;
-        if ([layer isKindOfClass:CAShapeLayer.class]) {
-            layer.cornerRadius = cornerRadius.width;
-        }
-    } else {
-        if (CGSizeEqualToSize(cornerRadius, CGSizeZero)) {
-        } else {
-            [self updateProgressAnimated:NO];
-        }
-    }
-}
-
-- (void)updateShapeLayer:(CAShapeLayer *)layer
-                 corners:(UIRectCorner)corners
-            cornerRadius:(CGSize)cornerRadius
-                   color:(UIColor *)color
-             borderColor:(UIColor *)borderColor
-             borderWidth:(CGFloat)borderWidth {
-    if (![layer isKindOfClass:CAShapeLayer.class]) {
-        return;
-    }
-    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:layer.bounds byRoundingCorners:corners cornerRadii:cornerRadius];
-    path.flatness = 0.1f;
-    layer.path = path.CGPath;
-    layer.fillColor = color.CGColor;
-    layer.strokeColor = borderColor.CGColor;
-    path.lineWidth = borderWidth;
+- (CAGradientLayer *)createGradientLayer {
+    CAGradientLayer *layer = CAGradientLayer.layer;
+    [self.layer addSublayer:layer];
+    return layer;
 }
 
 #pragma mark - UpdateProgress
@@ -302,45 +103,62 @@
     }
     
     // 背景的区域
-    _trackLayer.frame = UIRectFlip(UIEdgeInsetsInsetRect(self.bounds, _contentInsets), self.bounds);
-    if (CGRectIsNull(self.trackLayer.frame)) {
-        return;
+    CGRect trackFrame = UIRectFlip(UIEdgeInsetsInsetRect(self.bounds, _contentInsets), self.bounds);
+    if (_trackView) {
+        _trackView.frame = trackFrame;
+    } else {
+        _trackLayer.frame = trackFrame;
     }
-    [self updateShapeLayer:(CAShapeLayer *)_trackLayer corners:_trackCorner cornerRadius:_trackCornerRadius color:_trackColor borderColor:_trackBorderColor borderWidth:_trackBorderWidth];
     
     // 进度条的区域（初算）
-    CGRect progressFrame = UIEdgeInsetsInsetRect(_trackLayer.frame, _trackInsets);
+    CGRect progressFrame = UIEdgeInsetsInsetRect(trackFrame, _trackInsets);
     if (CGRectIsNull(progressFrame)) {
         return;
     }
     
     // 百分比区域
-    CGRect percentFrame = progressFrame;
-    if (_style & VMKProgressViewStyleZeroProgress) {
-        percentFrame = CGRectOffset(percentFrame, _zeroProgressWidth, 0.0f);
-        percentFrame.size.width -= _zeroProgressWidth;
+    if (_thumbView) {
+        progressFrame = CGRectOffset(progressFrame, CGRectGetWidth(_progressFrame0), 0.0f);
+        progressFrame.size.width -= CGRectGetWidth(_progressFrame0); // (CGRectGetWidth(_thumbLayer.frame) / 2) +
+    } else {
+        progressFrame = CGRectOffset(progressFrame, CGRectGetWidth(_progressFrame0), 0.0f);
+        progressFrame.size.width -= CGRectGetWidth(_progressFrame0); // (CGRectGetWidth(_thumbLayer.frame) / 2) +
     }
     
-    if (CGRectIsNull(percentFrame)) {
+    if (CGRectIsNull(progressFrame)) {
         return;
     }
     // 进度条的区域（核算）
-    progressFrame.size.width = CGRectGetMinX(percentFrame) - CGRectGetMinX(progressFrame) + (self.progress * CGRectGetWidth(percentFrame));
+    progressFrame.size.width = CGRectGetWidth(_progressFrame0) + (self.progress * CGRectGetWidth(progressFrame));
+    progressFrame.origin.x = CGRectGetMinX(progressFrame) - CGRectGetWidth(_progressFrame0);
     
-    CGRect thumbFrame = CGRectMake(CGRectGetMaxX(progressFrame) - height, 0.0f, height, height);
+    CGRect thumbFrame = _thumbView ? _thumbView.frame : _thumbLayer.frame;
+    thumbFrame = CGRectMake(CGRectGetMaxX(progressFrame) - (CGRectGetWidth(thumbFrame) / 2), 0.0f, CGRectGetWidth(thumbFrame), CGRectGetHeight(thumbFrame));
     
     if (animated) {
-        _progressLayer.frame = UIRectFlip(progressFrame, self.bounds);
-        [self updateShapeLayer:(CAShapeLayer *)_progressLayer corners:_progressCorner cornerRadius:_progressCornerRadius color:_progressColor borderColor:_progressBorderColor borderWidth:_progressBorderWidth];
-        _thumbLayer.frame = UIRectFlip(thumbFrame, self.bounds);
-        [self updateShapeLayer:(CAShapeLayer *)_thumbLayer corners:_thumbCorner cornerRadius:_thumbCornerRadius color:_thumbColor borderColor:_thumbBorderColor borderWidth:_thumbBorderWidth];
+        if (_progressView) {
+            _progressView.frame = UIRectFlip(progressFrame, self.bounds);
+        } else {
+            _progressLayer.frame = UIRectFlip(progressFrame, self.bounds);
+        }
+        if (_thumbView) {
+            _thumbView.frame = UIRectFlip(thumbFrame, self.bounds);
+        } else {
+            _thumbLayer.frame = UIRectFlip(thumbFrame, self.bounds);
+        }
     } else {
         [CATransaction begin];
         [CATransaction setDisableActions:YES];
-        _progressLayer.frame = UIRectFlip(progressFrame, self.bounds);
-        [self updateShapeLayer:(CAShapeLayer *)_progressLayer corners:_progressCorner cornerRadius:_progressCornerRadius color:_progressColor borderColor:_progressBorderColor borderWidth:_progressBorderWidth];
-        _thumbLayer.frame = UIRectFlip(thumbFrame, self.bounds);
-        [self updateShapeLayer:(CAShapeLayer *)_thumbLayer corners:_thumbCorner cornerRadius:_thumbCornerRadius color:_thumbColor borderColor:_thumbBorderColor borderWidth:_thumbBorderWidth];
+        if (_progressView) {
+            _progressView.frame = UIRectFlip(progressFrame, self.bounds);
+        } else {
+            _progressLayer.frame = UIRectFlip(progressFrame, self.bounds);
+        }
+        if (_thumbView) {
+            _thumbView.frame = UIRectFlip(thumbFrame, self.bounds);
+        } else {
+            _thumbLayer.frame = UIRectFlip(thumbFrame, self.bounds);
+        }
         [CATransaction commit];
     }
 }
